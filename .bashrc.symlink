@@ -1,0 +1,2 @@
+alias htmux='bash ~/dotfile/htmux.sh'
+alias vtmux='bash ~/dotfile/vtmux.sh'

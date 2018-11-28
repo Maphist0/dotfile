@@ -1,0 +1,127 @@
+:color desert
+set ts=4 sw=4 et
+set textwidth=79
+set encoding=utf-8
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='bubblegum'
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = '@'
+let g:airline_symbols.whitespace = ''
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'valloric/youcompleteme'
+
+Plugin 'bronson/vim-trailing-whitespace'
+
+Plugin 'plasticboy/vim-markdown'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'Nopik/vim-nerdtree-direnter'
+" Autonmatically close the nerdtree panel when it is the only panel
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMapOpenVSplit=''
+let g:NERDTreeMapOpenInTab='<ENTER>'
+
+map \\ :NERDTreeToggle<CR>
+
+Plugin 'myusuf3/numbers.vim'
+
+Plugin 'tpope/vim-surround'
+
+Plugin 'easymotion/vim-easymotion'
+map <Leader> <Plug>(easymotion-prefix)
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+" Move to line
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>l <Plug>(easymotion-overwin-line)
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+Plugin 'christoomey/vim-tmux-navigator'
+" Set the spli nagivation key for INSIDE vim
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+Plugin 'edkolev/tmuxline.vim'
+let g:tmuxline_preset = {
+    \'a'    : '#S(#H)',
+    \'b'    : '#W',
+    \'c'    : '%a %R',
+    \'win'  : '#I #W',
+    \'cwin' : '#I #W',
+    \'x'    : '',
+    \'y'    : '',
+    \'z'    : ''}
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+
+Plugin 'yggdroot/indentline'
+let g:indentLine_char = '>'
+
+Plugin 'scrooloose/nerdcommenter'
+let g:NERDRemoveExtraSpaces = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDSpaceDelims = 1
+inoremap ,, <C-o>:call NERDComment(0,"toggle")<C-m>
+nnoremap ,, :call NERDComment(0,"toggle")<C-m>
+
+Plugin 'whatyouhide/vim-lengthmatters'
+
+nnoremap <Space>1 1gt
+nnoremap <Space>2 2gt
+nnoremap <Space>3 3gt
+nnoremap <Space>4 4gt
+nnoremap <Space>5 5gt
+nnoremap <Space>6 6gt
+nnoremap <Space>7 7gt
+nnoremap <Space>8 8gt
+nnoremap <Space>9 9gt
+nnoremap <Space>0 :tablast<cr>
+" Go to last active tab
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <silent> <Space><Space> :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> <Space><Space> :exe "tabn ".g:lasttab<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+
