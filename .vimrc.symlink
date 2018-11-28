@@ -2,20 +2,16 @@
 set ts=4 sw=4 et
 set textwidth=79
 set encoding=utf-8
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The status bar and its color
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 let g:airline#extensions#tabline#enabled = 1
@@ -28,30 +24,40 @@ let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.branch = '@'
 let g:airline_symbols.whitespace = ''
 
+" Github integration
 Plugin 'tpope/vim-fugitive'
 
+" Auto completion
 Plugin 'valloric/youcompleteme'
 
+" Notify the tail whitespace
 Plugin 'bronson/vim-trailing-whitespace'
 
+" Support markdown files
 Plugin 'plasticboy/vim-markdown'
 
+" A file explorer
 Plugin 'scrooloose/nerdtree'
-Plugin 'Nopik/vim-nerdtree-direnter'
+map \\ :NERDTreeToggle<CR>
 " Autonmatically close the nerdtree panel when it is the only panel
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Change the icon to prevent incorrect cursor position
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:NERDTreeShowHidden = 1
+" The default for OpenVSplit is 's', conflicts with easymotion
 let g:NERDTreeMapOpenVSplit=''
+" To enable opening files in a new tab by default, at the same time doing its
+" job correctly to toggle folders
+Plugin 'Nopik/vim-nerdtree-direnter'
 let g:NERDTreeMapOpenInTab='<ENTER>'
 
-map \\ :NERDTreeToggle<CR>
-
+" Smart line number
 Plugin 'myusuf3/numbers.vim'
 
 Plugin 'tpope/vim-surround'
 
+" Quick cursor jump
 Plugin 'easymotion/vim-easymotion'
 map <Leader> <Plug>(easymotion-prefix)
 " <Leader>f{char} to move to {char}
@@ -66,6 +72,7 @@ nmap <Leader>l <Plug>(easymotion-overwin-line)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
+" Connect tmux with vim
 Plugin 'christoomey/vim-tmux-navigator'
 " Set the spli nagivation key for INSIDE vim
 nnoremap <C-J> <C-W><C-J>
@@ -73,6 +80,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Synchronize the color scheme between tmux and vim
 Plugin 'edkolev/tmuxline.vim'
 let g:tmuxline_preset = {
     \'a'    : '#S(#H)',
@@ -90,9 +98,11 @@ let g:tmuxline_separators = {
     \ 'right_alt' : '<',
     \ 'space' : ' '}
 
+" Show the indent level
 Plugin 'yggdroot/indentline'
 let g:indentLine_char = '>'
 
+" Shortcut for commenting
 Plugin 'scrooloose/nerdcommenter'
 let g:NERDRemoveExtraSpaces = 1
 let g:NERDTrimTrailingWhitespace = 1
@@ -100,8 +110,10 @@ let g:NERDSpaceDelims = 1
 inoremap ,, <C-o>:call NERDComment(0,"toggle")<C-m>
 nnoremap ,, :call NERDComment(0,"toggle")<C-m>
 
+" Pay attention to the line length
 Plugin 'whatyouhide/vim-lengthmatters'
 
+" Quick toggle between tabs
 nnoremap <Space>1 1gt
 nnoremap <Space>2 2gt
 nnoremap <Space>3 3gt
