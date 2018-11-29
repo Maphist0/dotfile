@@ -1,6 +1,4 @@
-:color desert
 set ts=4 sw=4 et
-set textwidth=79
 set encoding=utf-8
 
 set nocompatible              " be iMproved, required
@@ -11,6 +9,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" color scheme
+Plugin 'flazz/vim-colorschemes'
+
 " The status bar and its color
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -30,9 +31,6 @@ Plugin 'tpope/vim-fugitive'
 " Auto completion
 Plugin 'valloric/youcompleteme'
 
-" Notify the tail whitespace
-Plugin 'bronson/vim-trailing-whitespace'
-
 " Support markdown files
 Plugin 'plasticboy/vim-markdown'
 
@@ -41,10 +39,14 @@ Plugin 'scrooloose/nerdtree'
 map \\ :NERDTreeToggle<CR>
 " Autonmatically close the nerdtree panel when it is the only panel
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Automatically open the nerdtree if no file is specified by vim open
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Change the icon to prevent incorrect cursor position
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:NERDTreeShowHidden = 1
+let g:NERDTreeWinSize=60
 " The default for OpenVSplit is 's', conflicts with easymotion
 let g:NERDTreeMapOpenVSplit=''
 " To enable opening files in a new tab by default, at the same time doing its
@@ -104,14 +106,12 @@ let g:indentLine_char = '>'
 
 " Shortcut for commenting
 Plugin 'scrooloose/nerdcommenter'
+filetype plugin on
 let g:NERDRemoveExtraSpaces = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDSpaceDelims = 1
 inoremap ,, <C-o>:call NERDComment(0,"toggle")<C-m>
 nnoremap ,, :call NERDComment(0,"toggle")<C-m>
-
-" Pay attention to the line length
-Plugin 'whatyouhide/vim-lengthmatters'
 
 " Quick toggle between tabs
 nnoremap <Space>1 1gt
@@ -129,11 +129,50 @@ au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <Space><Space> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <Space><Space> :exe "tabn ".g:lasttab<cr>
 
+" Advanced search and highlighting
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'haya14busa/incsearch-easymotion.vim'
+Plugin 'haya14busa/incsearch-fuzzy.vim'
+nmap / <Plug>(incsearch-easymotion-/)
+" nmap ? <Plug>(incsearch-easymotion-?)
+" map g/ <Plug>(incsearch-easymotion-stay)
+" incsearch.vim x fuzzy x vim-easymotion
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+    \   'converters': [incsearch#config#fuzzy#converter()],
+    \   'modules': [incsearch#config#easymotion#module()],
+    \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+    \   'is_expr': 0,
+    \   'is_stay': 1
+    \ }), get(a:, 1, {}))
+endfunction
+nnoremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+
+" Automatically highlight
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+  let @/ = ''
+  if exists('#auto_highlight')
+    au! auto_highlight
+    augroup! auto_highlight
+    setl updatetime=4000
+    " echo 'Highlight current word: off'
+    return 0
+  else
+    augroup auto_highlight
+      au!
+      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+    augroup end
+    setl updatetime=500
+    " echo 'Highlight current word: ON'
+    return 1
+  endif
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
-
-
-
+syntax on
+colorscheme monokai-phoenix
