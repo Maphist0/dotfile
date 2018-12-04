@@ -171,6 +171,8 @@ function! AutoHighlightToggle()
   endif
 endfunction
 
+Plugin 'xuyuanp/nerdtree-git-plugin'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
