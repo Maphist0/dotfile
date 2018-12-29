@@ -20,10 +20,6 @@ let g:airline_theme='bubblegum'
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = '@'
-let g:airline_symbols.whitespace = ''
 
 " Github integration
 Plugin 'tpope/vim-fugitive'
@@ -43,8 +39,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Change the icon to prevent incorrect cursor position
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinSize=60
 " The default for OpenVSplit is 's', conflicts with easymotion
@@ -76,7 +70,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " Connect tmux with vim
 Plugin 'christoomey/vim-tmux-navigator'
-" Set the spli nagivation key for INSIDE vim
+" Set the split nagivation key for INSIDE vim
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>

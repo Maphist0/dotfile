@@ -26,3 +26,4 @@ trap 'preexec' DEBUG
 alias htmux='bash ~/dotfile/htmux.sh'
 alias vtmux='bash ~/dotfile/vtmux.sh'
 alias onetmux='bash ~/dotfile/onetmux.sh'
+alias mt='bash ~/dotfile/monitmux.sh'
