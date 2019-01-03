@@ -167,6 +167,10 @@ endfunction
 
 Plugin 'xuyuanp/nerdtree-git-plugin'
 
+" Scroll multiple lines using c-e and c-y
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

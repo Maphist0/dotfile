@@ -14,3 +14,11 @@ bind-key -T copy-mode-vi C-j select-pane -D
 bind-key -T copy-mode-vi C-k select-pane -U
 bind-key -T copy-mode-vi C-l select-pane -R
 bind-key -T copy-mode-vi C-\ select-pane -l
+
+# Enable scrolling
+set -g mouse on
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'copy-mode -e; send-keys -M'"
+bind-key -n C-e if-shell "$is_vim" "send-keys C-e" "copy-mode; send-keys Pagedown"
+bind-key -n C-y if-shell "$is_vim" "send-keys C-y" "copy-mode; send-keys Pageup"
+bind-key -T copy-mode C-e send-keys Pagedown 
+bind-key -T copy-mode C-y send-keys Pageup

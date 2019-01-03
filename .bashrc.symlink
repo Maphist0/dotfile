@@ -23,7 +23,7 @@ preexec() {
 }
 trap 'preexec' DEBUG
 
-alias htmux='bash ~/dotfile/htmux.sh'
-alias vtmux='bash ~/dotfile/vtmux.sh'
-alias onetmux='bash ~/dotfile/onetmux.sh'
+alias ot='bash ~/dotfile/onetmux.sh'
 alias mt='bash ~/dotfile/monitmux.sh'
+alias att='python ~/dotfile/attachtmux.py'
+alias pv='bash ~/dotfile/pv.sh'
