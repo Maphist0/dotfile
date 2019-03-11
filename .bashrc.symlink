@@ -25,5 +25,6 @@ trap 'preexec' DEBUG
 
 alias ot='bash ~/dotfile/onetmux.sh'
 alias mt='bash ~/dotfile/monitmux.sh'
+alias vt='bash ~/dotfile/vimtmux.sh'
 alias att='python ~/dotfile/attachtmux.py'
 alias pv='bash ~/dotfile/pv.sh'

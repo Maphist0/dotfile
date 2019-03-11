@@ -1,10 +1,6 @@
 set ts=4 sw=4 et
 set encoding=utf-8
 set ve+=onemore
-set <up>=^[OA
-set <down>=^[OB
-set <right>=^[OC
-set <left>=^[OD
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -80,24 +76,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" Synchronize the color scheme between tmux and vim
-Plugin 'edkolev/tmuxline.vim'
-let g:tmuxline_preset = {
-    \'a'    : '#S(#H)',
-    \'b'    : '#W',
-    \'c'    : '%a %R',
-    \'win'  : '#I #W',
-    \'cwin' : '#I #W',
-    \'x'    : '',
-    \'y'    : '',
-    \'z'    : ''}
-let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': '>',
-    \ 'right' : '',
-    \ 'right_alt' : '<',
-    \ 'space' : ' '}
 
 " Show the indent level
 Plugin 'yggdroot/indentline'
