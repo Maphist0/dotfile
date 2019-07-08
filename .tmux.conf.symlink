@@ -1,4 +1,4 @@
-set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-256color"
 
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator

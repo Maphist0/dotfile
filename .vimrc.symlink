@@ -22,11 +22,14 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 
+" Show marks on the left
+Plugin 'kshenoy/vim-signature'
+
 " Github integration
 Plugin 'tpope/vim-fugitive'
 
 " Auto completion
-Plugin 'valloric/youcompleteme'
+" Plugin 'valloric/youcompleteme'
 
 " Support markdown files
 Plugin 'plasticboy/vim-markdown'
