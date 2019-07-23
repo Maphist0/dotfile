@@ -1,0 +1,93 @@
+// ==UserScript==
+// @name         DBLP auto bibtex loader
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Add a button to each paper item, which directly fetches the bibtex for the current paper.
+// @author       TZ
+// @match        https://dblp.uni-trier.de/search?q=*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    window.onload = function () {
+
+        function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds){
+                    break;
+                }
+            }
+        }
+
+        // Fetch the raw text of a given URL
+        var getHTML = function ( url, callback ) {
+            // alert('Fetching url:' + url);
+            // Feature detection
+            if ( !window.XMLHttpRequest ) return;
+            // Create new request
+            var xhr = new XMLHttpRequest();
+            // Setup callback
+            xhr.onload = function() {
+                if ( callback && typeof( callback ) === 'function' ) {
+                    callback( this.responseText );
+                }
+            }
+            // Get the HTML
+            xhr.open( 'GET', url, true );
+            // xhr.responseType = 'document';
+            xhr.send();
+        };
+
+        function onclick() {
+            var bibid = this.parentElement.id;
+            var url = "https://dblp.uni-trier.de/rec/bib2/" + bibid + ".bib";
+            var thisbtn = this;
+            getHTML(url, function (response) {
+                // Create a new node to host the bibtex information
+                var li = document.createElement('li');
+                var div = document.createElement('div');
+                div.setAttribute("id", "bibtex-section");
+                div.setAttribute("class", "section");
+                var pre = document.createElement('pre');
+                pre.setAttribute("class", "verbatim select-on-click");
+                pre.setAttribute("title", "click to copy to clipboard");
+                var newContent = document.createTextNode(response);
+                pre.appendChild(newContent);
+                div.appendChild(pre);
+                li.appendChild(div);
+                // Append it to the bottom of the current entry
+                thisbtn.parentElement.after(li);
+                // alert("My fetched element content: " + response);
+            });
+        }
+
+        function bindButtons() {
+            var entrys = document.querySelectorAll("nav[class='publ']");
+            for (var i = 0; i < entrys.length; i++) {
+                if (entrys[i].nextSibling.innerHTML != 'Bib') {
+                    // console.log('Adding button for:' + i)
+                    var btn = document.createElement("button");
+                    btn.innerHTML = "Bib";
+                    btn.onclick = onclick;
+                    // btn.addEventListener('mouseover', hover);
+                    // btn.addEventListener('mouseout', unhover);
+                    // alert('Adding btn for ' + i);
+                    entrys[i].after(btn);
+                } else {
+                    // console.log('Skipping button for:' + i);
+                }
+            }
+        }
+
+        bindButtons();
+        window.setInterval(bindButtons, 1000);
+        // document.querySelectorAll("form[id='completesearch-form']")[0].addEventListener('keydown', function(event) {
+        //     sleep(500);
+        //     bindButtons();
+        // });
+    }
+    //.after(btn);
+})();
